@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Shopping List Check Off</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="angular.min.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <style>
+      .emptyMessage {
+        font-weight: bold;
+        color: red;
+        font-size: 1.2em;
+      }
+      li {
+        margin-bottom: 7px;
+        font-size: 1.2em;
+      }
+      li > button {
+        margin-left: 6px;
+      }
+      button > span {
+        color: green;
+      }
+      .abcd {
+        height: 38px;
+      }
+    </style>
+  </head>
+<body ng-app='abc' ng-controller="fun">
+  <div class="container">
+  <h1>Shopping List Check Off</h1><br><br>
+
+  <div class="row">
+
+    <!-- To Buy List -->
+    <div class="col-md-6">
+     <h2>To Buy:</h2><br>
+     <ul>
+       <li ng-repeat="item in items">BUY {{item.quantity}} {{item.name}} <button class="btn " ng-click="funct($index)"><span class="glyphicon glyphicon-ok"></span> BUY</button></li>
+
+     </ul>
+     <div class="emptyMessage">{{msg}}</div>
+    </div>
+
+    <!-- Already Bought List -->
+    <div class="col-md-6">
+     <h2>Already Bought:</h2><br>
+     <ul>
+       <li ng-repeat="item1 in itemz" class="abcd">BOUGHT {{item1.quantity}} {{item1.name}}</li>
+     </ul>
+     <div class="emptyMessage">{{msg1}}</div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+angular.module('abc',[]) 
+.controller('fun',fun)
+function fun($scope){
+  $scope.msg=""
+  $scope.msg1="Nothing Bought yet!!"
+  $scope.items=[
+  {
+    name:"Cookies",
+    quantity:10
+  },
+  {
+    name:"Mango",
+    quantity:5
+  },
+  {
+    name:"Pizzas",
+    quantity:2
+  },
+  {
+    name:"Chocolates",
+    quantity:15
+  },
+  {
+    name:"Ice-cream",
+    quantity:3
+  },
+  {
+    name:"Biscuits",
+    quantity:8
+  }]
+$scope.itemz=[]
+$scope.funct=function(p){
+  $scope.itemz.push($scope.items[p])
+  $scope.items.splice(p,1)
+  if($scope.items.length==0){
+    $scope.msg="Everything is Bought!!"
+  }
+  if($scope.itemz.length!=0){
+    $scope.msg1=""
+  }
+  
+}
+}
+</script> 
+
+</body>
+</html>
